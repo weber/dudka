@@ -1,6 +1,6 @@
 {
   "name": "@weber/dudka",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "bin": {
     "hello": "./dudka"
   },
@@ -21,7 +21,10 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "repository": "weber/dudka",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weber/dudka.git"
+  },
   "scripts": {
     "create": "hygen init-app new"
   },
