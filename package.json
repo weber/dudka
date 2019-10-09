@@ -1,11 +1,11 @@
 {
-  "name": "unwrapp",
+  "name": "dudka",
   "version": "1.0.0",
   "description": "",
   "bin": {
-    "hello": "./unwrapp"
+    "hello": "./dudka"
   },
-  "main": "unwrapp",
+  "main": "dudka",
   "dependencies": {
     "colors": "^1.4.0",
     "name": "^0.0.2",
