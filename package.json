@@ -1,0 +1,27 @@
+{
+  "name": "unwrapp",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "hello": "./unwrapp"
+  },
+  "main": "unwrapp",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "name": "^0.0.2",
+    "ora": "^4.0.2",
+    "ramda": "^0.26.1",
+    "replace-in-file": "^4.1.3"
+  },
+  "devDependencies": {
+    "flop": "^6.0.2",
+    "fs-extra": "^8.1.0",
+    "hygen": "^4.0.9",
+    "inquirer": "^7.0.0"
+  },
+  "scripts": {
+    "create": "./node_modules/.bin/hygen init-app new"
+  },
+  "author": "Webs <rainbluz@gmail.com>",
+  "license": "Apache 2.0"
+}

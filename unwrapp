@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+const {isEmpty} = require('ramda')
+const { runner } = require('hygen')
+const Logger = require('hygen/lib/logger')
+const path = require('path')
+const defaultTemplates = path.join(__dirname, '_templates')
+
+process.env.HYGEN_OVERWRITE=1
+
+if (isEmpty(process.argv.slice(2))) {
+  runner(['init-app', 'new'], {
+    templates: defaultTemplates,
+    cwd: process.cwd(),
+    logger: new Logger(console.log.bind(console)),
+    createPrompter: () => require('enquirer'),
+    exec: (action, body) => {
+      const opts = body && body.length > 0 ? { input: body } : {}
+      return require('execa').shell(action, opts)
+    },
+    debug: !!process.env.DEBUG
+  })
+
+} else {
+  runner(process.argv.slice(2), {
+    templates: defaultTemplates,
+    cwd: process.cwd(),
+    logger: new Logger(console.log.bind(console)),
+    createPrompter: () => require('enquirer'),
+    exec: (action, body) => {
+      const opts = body && body.length > 0 ? { input: body } : {}
+      return require('execa').shell(action, opts)
+    },
+    debug: !!process.env.DEBUG
+  })
+}
