@@ -1,6 +1,6 @@
 {
   "name": "@weber/dudka",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "bin": {
     "dudka": "./dudka"
   },
@@ -10,13 +10,14 @@
     "name": "^0.0.2",
     "ora": "^4.0.2",
     "ramda": "^0.26.1",
-    "replace-in-file": "^4.1.3"
-  },
-  "devDependencies": {
+    "replace-in-file": "^4.1.3",
     "flop": "^6.0.2",
     "fs-extra": "^8.1.0",
     "hygen": "^4.0.9",
     "inquirer": "^7.0.0"
+  },
+  "devDependencies": {
+
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
