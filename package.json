@@ -24,7 +24,7 @@
   },
   "repository" : {
     "type" : "git",
-    "url": "ssh://git@github.com:weber/dudka.git"
+    "url": "git://github.com/weber/dudka.git"
   },
   "scripts": {
     "create": "./node_modules/.bin/hygen init-app new"
