@@ -16,9 +16,7 @@
     "hygen": "^4.0.9",
     "inquirer": "^7.0.0"
   },
-  "devDependencies": {
-
-  },
+  "devDependencies": {},
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
