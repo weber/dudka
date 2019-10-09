@@ -2,7 +2,7 @@
   "name": "@weber/dudka",
   "version": "1.0.5",
   "bin": {
-    "hello": "./dudka"
+    "dudka": "./dudka"
   },
   "main": "dudka",
   "dependencies": {
