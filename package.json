@@ -19,6 +19,13 @@
     "hygen": "^4.0.9",
     "inquirer": "^7.0.0"
   },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
+  },
+  "repository" : {
+    "type" : "git",
+    "url": "ssh://git@github.com:weber/dudka.git"
+  },
   "scripts": {
     "create": "./node_modules/.bin/hygen init-app new"
   },
