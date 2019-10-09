@@ -1,7 +1,6 @@
 {
-  "name": "dudka",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@weber/dudka",
+  "version": "1.0.1",
   "bin": {
     "hello": "./dudka"
   },
@@ -20,15 +19,17 @@
     "inquirer": "^7.0.0"
   },
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/"
   },
-  "repository" : {
-    "type" : "git",
-    "url": "git://github.com/weber/dudka.git"
-  },
+  "repository": "weber/dudka",
   "scripts": {
-    "create": "./node_modules/.bin/hygen init-app new"
+    "create": "hygen init-app new"
   },
-  "author": "Webs <rainbluz@gmail.com>",
-  "license": "Apache 2.0"
+  "author": "Sergey Kirichenko",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/weber/dudka/issues"
+  },
+  "homepage": "https://github.com/weber/dudka#readme",
+  "description": ""
 }
