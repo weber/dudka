@@ -58,6 +58,7 @@ module.exports = {
 					return new Promise(res => {
 						const sp = spawn('ng', ['new', r.name, '--routing=true', '--skipInstall=false', '--style=scss', '--prefix=c'], {
 							stdio: ['inherit', 'inherit', 'inherit'],
+							shell: true
 						})
 						
 						
