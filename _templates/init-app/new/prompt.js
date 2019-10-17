@@ -73,9 +73,7 @@ module.exports = {
 				.then(r => {
 					 const spinner = ora('Инициализация пакетов приложения').start();
 						spinner.color = 'yellow';
-					return new Promise(res => {
 					
-					})
 					
 					const pathTo =  path.resolve(process.cwd(), r.name)
 					
