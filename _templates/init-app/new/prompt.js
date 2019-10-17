@@ -113,8 +113,9 @@ module.exports = {
 						// loglevel: 'silent',
 						// 'cache-min': 999999999
 					}, function (err) {
+						console.log('EROOR', err)
 						spinner.stop()
-						return
+						return Promise.resolve(r)
 					});
 			
 				})
