@@ -50,8 +50,8 @@ module.exports = {
 						message: "Введите Ф.И. и email автора"
 					}
 				])
-				.then(({ name, title, iteration, repo }) => {
-					return {name, title, iteration, repo}
+				.then(({ name, title, iteration, repo, author }) => {
+					return {name, title, iteration, repo, author}
 				})
 				.then(r => {
 				
@@ -60,8 +60,7 @@ module.exports = {
 							stdio: ['inherit', 'inherit', 'inherit'],
 						})
 						
-						/* const spinner = ora('Инициализация базового приложения').start();
-						spinner.color = 'yellow'; */
+						
 						
 						sp.on('close', _ => {
 						//	spinner.stop()
@@ -72,6 +71,8 @@ module.exports = {
 					})
 				})
 				.then(r => {
+					 const spinner = ora('Инициализация базового приложения').start();
+						spinner.color = 'yellow';
 					return new Promise(res => {
 						const pathTo =  path.resolve(process.cwd(), r.name)
 						
@@ -113,6 +114,7 @@ module.exports = {
 							loglevel: 'silent',
 							'cache-min': 999999999
 						}, function (err) {
+							spinner.stop()
 							return res(r)
 						});
 					})
