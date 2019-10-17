@@ -1,4 +1,4 @@
-/* 
+/*
 
 
 const pathProgramm = path.resolve(__dirname, 'node_modules', '.bin', 'hygen')
@@ -12,6 +12,7 @@ const fs = require('fs-extra')
 const inquirer = require('inquirer')
 const colors = require("colors");
 const replace = require('replace-in-file');
+const npm = require('enpeem');
 
 module.exports = {
 	prompt: ({ prompter, args }) => {
@@ -35,33 +36,92 @@ module.exports = {
 						name: 'iteration',
 						default: '11.6.0',
 						message: "Введите номер итерации?"
+					},
+					{
+						type: 'input',
+						name: 'repo',
+						default: 'git+ssh://cl-tfs2018:22/tfs/CK-11/WebDev/_git/YOUR_NAME_PROJECT',
+						message: "Введите адерс репозитория?"
+					},
+					{
+						type: 'input',
+						name: 'author',
+						default: 'Фамилия Имя <YOUR_MAIL@monitel.com>',
+						message: "Введите Ф.И. и email автора"
 					}
 				])
-				.then(({ name, title, iteration }) => {
+				.then(({ name, title, iteration, repo }) => {
+					return {name, title, iteration, repo}
+				})
+				.then(r => {
 				
 					return new Promise(res => {
-						const sp = spawn('ng', ['new', name, '--skipInstall=true', '--style=scss', '--prefix=c'], {
+						const sp = spawn('ng', ['new', r.name, '--routing=true', '--skipInstall=false', '--style=scss', '--prefix=c'], {
 							stdio: ['inherit', 'inherit', 'inherit'],
 						})
 						
-						/* const spinner = ora('Инициализация базового приложения').start(); 
+						/* const spinner = ora('Инициализация базового приложения').start();
 						spinner.color = 'yellow'; */
 						
 						sp.on('close', _ => {
 						//	spinner.stop()
 							console.log("[", "базовое приложение создано".white,   "]");
-							return res({ name, title, iteration }) 
+							return res(r)
 						})
 						
 					})
+				})
+				.then(r => {
+					const pathTo =  path.resolve(process.cwd(), r.name)
+					
+					npm.install({
+						dir: pathTo,
+						dependencies: [
+							'@angular/cdk',
+							'@compodoc/compodoc',
+							'@angular/router',
+							'@ngrx/effects ',
+							'@ngrx/store',
+							'date-fns',
+							'devextreme',
+							'devextreme-angular',
+							'devextreme-intl',
+							'downloadjs ',
+							'hammerjs',
+							'module-alias',
+							'monitel-web-styles@git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles',
+							'npm-check-updates',
+							'ramda',
+							'ngx-toastit',
+							'ramda-extension',
+							'reflect-metadata',
+							'sails-disk@git://github.com/balderdashy/sails-disk.git#associations',
+							'lodash'
+						],
+						devDependencies: [
+							'@fortawesome/fontawesome-free',
+							'@ngrx/schematics',
+							'@ngrx/store-devtools',
+							'@typed-f/either',
+							'@typed-f/lens',
+							'@typed-f/maybe',
+							'@typed-f/function',
+							'angular2-fontawesome',
+							'husky'
+						],
+						loglevel: 'silent',
+						'cache-min': 999999999
+					}, function (err) { /* ... */ });
 				})
 				
 				.then(r => {
 					const pathTo =  path.resolve(process.cwd(), r.name)
 					const pathFrom = path.resolve(__dirname, './files/')
+					const pathCopyFrom = path.resolve(__dirname, '../../../', 'files/')
  
+					console.log('pathCopyFrom',pathCopyFrom)
 					
-					fs.copy(pathFrom, pathTo)
+					fs.copy(pathCopyFrom, pathTo)
 						.then(() => console.log('success!'))
 						.catch(err => console.error(err))
 					
@@ -72,6 +132,7 @@ module.exports = {
 
 					return r
 				})
+				
 				.then(r => {
 					const pathToPackageJson = path.resolve(process.cwd(), r.name, 'package.json')
 					const pathNG = `./node_modules/.bin/ng`
@@ -86,6 +147,9 @@ module.exports = {
 
 					setOptionPackage (pathToPackageJson, 'test', `${pathNG} test`)
 					setOptionPackage (pathToPackageJson, 'e2e', `${pathNG} e2e`)
+					return r
+				})
+				.then(r => {
 					resolve(r)
 				})
 		})
@@ -93,8 +157,8 @@ module.exports = {
 }
 
 function setParam (name, type = 'string') {
-	if (type === 'string') 
-	return new RegExp('((\\"' + name + '\\"\\:)([0-9A-Za-z\\"\\-\\_\\s\\.\\/\\=])*)', 'i')   
+	if (type === 'string')
+	return new RegExp('((\\"' + name + '\\"\\:)([0-9A-Za-z\\"\\-\\_\\s\\.\\/\\=])*)', 'i')
 }
 
 function setValue (name, value) {
@@ -105,7 +169,7 @@ function setOptionPackage (pathTo, paramName, paramValue) {
 
 	const results = replace.sync({
 		files: pathTo,
-		from: setParam(paramName), 
+		from: setParam(paramName),
 		to: setValue(paramName, paramValue),
 	});
 	return results

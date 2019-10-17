@@ -5,7 +5,7 @@ to: <%=name%>/src/index.html
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>Учёт бланков переключений</title>
+  <title><%=title%></title>
   <base href="/">
   <script type="text/javascript">
     (function() {
@@ -18,6 +18,6 @@ to: <%=name%>/src/index.html
   <link rel="icon" type="image/png" href="logo.png" />
 </head>
 <body>
-  <c-root></c-root>
+  <app-root></app-root>
 </body>
 </html>

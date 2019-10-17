@@ -1,0 +1,368 @@
+@import "../../scss/utils";
+@import "../../scss/media";
+
+$offsetNav: 0.6rem;
+$nav-width: 28rem;
+:host {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+// sidebar левый
+.nav{
+
+  $nav_background: #2a333f;
+
+  display: flex;
+  flex: 1 1 auto;
+  width: $nav-width;
+  max-width: $nav-width;
+  height: 100vh;
+  min-height: 100vh;
+  position: absolute;
+  transition: left 0.7s;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  background: $nav_background;
+  z-index: 10;
+  left: 0;
+
+  @include min-screen ('1024px') {
+    position: initial;
+    flex: 0 1 auto;
+    height: 100vh;
+  }
+
+  // контейнер sidebar
+  &__cnt{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__closer{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.15;
+    background: $nav_background;
+    z-index: -1;
+
+
+    @include min-screen ('1024px') {
+      display: none;
+    }
+  }
+
+  // спрятать sidebar
+  &.s-hide {
+    left: -($nav-width - $offsetNav);
+    position: absolute;
+    cursor: pointer;
+
+    // отображения sidebar при наведении в конец экрана
+    @include min-screen ('1280px') {
+      &:hover{
+        left: 0px;
+      }
+    }
+
+  }
+  // показать sidebar
+  &.s-show {
+    left: 0px;
+    position: absolute;
+  }
+
+  &__space{
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  // меню
+  &__menu{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;;
+
+    &__link{
+      color: #fff;
+      cursor: pointer;
+      font-size: 15px;
+      padding: 12px;
+      text-overflow: ellipsis;
+      white-space: pre;
+      overflow: hidden;
+      display: flex;
+      text-decoration: none;
+      position: relative;
+
+      .fa{
+        width: 25px;
+        text-align: center;
+        vertical-align: baseline;
+        margin-right: 5px;
+        flex: 0 0 auto;
+      }
+
+      &:hover{
+        background: #202730;
+      }
+      &:active{
+        background: #373c42;
+        color: #e0dddd;
+      }
+      &:focus{
+        background: #202730;
+      }
+
+      &.s-active{
+        background-color: #3e4c5e;
+      }
+    }
+  }
+
+  // полноэкранный режим
+  &__fullscreen{
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  // информация о пользователе
+
+  &__info{
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 12px 10px;
+    text-overflow: ellipsis;
+    white-space: pre;
+    overflow: hidden;
+
+    .fa{
+      color: #f2f2f2;
+      width: 25px;
+      text-align: center;
+      vertical-align: baseline;
+      margin-right: 5px;
+      flex: 0 0 auto;
+    }
+  }
+
+  &__accent{
+    color: #35547b;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 12px 10px;
+    text-overflow: ellipsis;
+    white-space: pre;
+    overflow: hidden;
+    border-radius: 3px;
+
+    .fa{
+      color: #f2f2f2;
+      width: 25px;
+      text-align: center;
+      vertical-align: baseline;
+      margin-right: 5px;
+      flex: 0 0 auto;
+    }
+  }
+  &__info_online{
+
+    &.s-online{
+      color: #6cff73;
+    }
+    &.s-offline{
+      color: red;
+    }
+  }
+  &__version{
+    padding: 10px;
+    color: #4a81a8;
+    text-align: center;
+    font-size: 11px;
+  }
+}
+
+.block{
+  // логотип
+
+  &__logo{
+    display: flex;
+    height: 5rem;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    max-width: $nav-width;
+    flex: 0 1 auto;
+
+    .logo{
+      display: block;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+      // color: #9d9d9d;
+
+
+      display: flex;
+      flex: 1 1 auto;
+      align-items: center;
+      justify-content: center;
+
+      &__image{
+        display: flex;
+        flex: 0 1 auto;
+        width: 3rem;
+      }
+
+      &__title{
+        padding: 0 1rem;
+        display: flex;
+        flex: 0 1 auto;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #9d9d9d;
+        color: #fff;
+        @include text-crop;
+      }
+    }
+  }
+}
+
+// контентная часть - содержит все
+.cnt {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  height: 100vh;
+  transition: left .7s, width .7s;
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  pointer-events: all;
+
+  &.s-fullscreen {
+    left: 0;
+    width: 100vw;
+
+    position: absolute;
+  }
+  &.s-withNav {
+    @include min-screen ('1024px') {
+      width: calc(100% - 28rem);
+      position: absolute;
+      left: 28rem;
+    }
+
+  }
+}
+//
+.header{
+  display: flex;
+  height: 5rem;
+  align-items: center;
+  padding: 0 20px;
+
+
+  &__menu{
+    flex: 0 0 auto;
+    background-color: #35547b;
+
+    ::ng-deep {
+      .dx-icon {
+        color: #fff;
+        font-size: 17px;
+      }
+    }
+
+    &.dx-state-hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+.content{
+  display: flex;
+  margin-top: -5rem;
+  height: 100%;
+  width: 100%;
+}
+// для содержимого контентной части при полном экране и закрытой навигацией
+.s-fullscreen{
+  ::ng-deep {
+    .content__cnt{
+
+      padding-left: $offsetNav;
+    }
+  }
+}
+
+
+:host-context(.dx){
+  .dx-icon {
+    color: #35547b;
+  }
+}
+
+
+.filter {
+	flex-direction: column;
+	width: 100%;
+	height: fit-content;;
+	display: none;
+	padding-bottom: 1rem;
+	outline: none;
+
+	&_item {
+		color: #fff;
+		cursor: pointer;
+		font-size: 15px;
+		padding: 12px 25px;
+		text-overflow: ellipsis;
+		white-space: pre;
+		overflow: hidden;
+		display: flex;
+		text-decoration: none;
+		position: relative;
+		padding: 12px;
+		margin-left: 1.5rem;
+
+		&__icon{
+			width: 25px;
+			text-align: center;
+			vertical-align: baseline;
+			margin-right: 5px;
+			flex: 0 0 auto;
+		}
+
+		&:hover{
+			background: #202730;
+			border-radius: 3px;
+		}
+		&:active{
+			background: #373c42;
+			color: #e0dddd;
+		}
+		&:focus{
+			background: #202730;
+		}
+
+		&.s-active{
+			background-color: #14191f;
+			border-radius: 3px;
+		}
+	}
+}
+
+.s-show {
+	&--filter{
+		display: flex;
+	}
+}

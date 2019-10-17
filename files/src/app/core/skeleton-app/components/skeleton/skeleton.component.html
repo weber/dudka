@@ -1,0 +1,143 @@
+<aside
+  *ngIf="(isSidebarDisabled | async)"
+  class="nav"
+  [ngClass]="(hasShowNav$ | async)"
+  (swiperight)="showSidebar()"
+  (swipeleft)="hideSidebar()"
+>
+  <div class="nav__cnt">
+    <div class="block__logo">
+      <a
+        class="logo"
+        routerLink="/"
+      >
+        <img class="logo__image" *ngIf="logoImg" [src]="logoImg" alt="">
+        <span class="logo__title">{{ nameApp }}</span>
+      </a>
+    </div>
+
+    <nav class="nav__menu">
+
+      <ng-container *ngFor="let navItem of navigationMap">
+        <a
+          *ngIf="!navItem.data.isLinkNative && navItem.data.visible"
+          class="nav__menu__link"
+          [routerLink]="navItem.path"
+          routerLinkActive="s-active"
+        >
+          <i
+            class="fa"
+            [ngClass]="navItem.data.faIconName"
+            [ngStyle]="{'color': navItem.data.faIconColor}"
+          ></i>
+          {{ navItem.data.title}}
+        </a>
+
+
+        <div
+          class="filter"
+          *ngIf="navItem.path === filterPath"
+          routerLinkActive="s-show--filter"
+          [routerLink]="navItem.path"
+        >
+
+          <div
+            *ngFor="let filterItem of filter"
+            class="filter_item"
+            [ngClass]="filterItem['alias'] === activeItem ? 's-active' : ''"
+            (click)="filterItem['handlerClick'](filterItem.name)"
+          >
+            <i
+              class="filter_item__icon"
+              [ngClass]="filterItem.icon"
+            ></i>
+            {{filterItem.title}}
+
+          </div>
+        </div>
+
+
+        <a
+          *ngIf="navItem.data.isLinkNative && navItem.data.visible"
+          class="nav__menu__link"
+          [href]="navItem.data.link"
+          routerLinkActive="s-active"
+          [target]="navItem.data.targetLink ? navItem.data.targetLink : '_self'"
+        >
+          <i
+            class="fa"
+            [ngClass]="navItem.data.faIconName"
+            [ngStyle]="{'color': navItem.data.faIconColor}"
+          ></i>
+          <span ng-bind="msgFullscreen"></span>
+          {{ navItem.data.title}}
+        </a>
+
+      </ng-container>
+
+    </nav>
+    <ng-content select="[nav]"></ng-content>
+
+
+    <ng-content select="[ext]"></ng-content>
+
+    <div class="nav__space">
+    </div>
+
+    <ng-content select="[footer]"></ng-content>
+
+    <div
+      *ngIf="isSupportFullScreen"
+      class="nav__fullscreen"
+      (click)="onToggleFullScreen()"
+    >
+      <i class="fa fa-fullscreen" style="color: #fff"></i>
+      <span [innerHtml]="msgFullScreen$ | async"></span>
+
+    </div>
+
+    <div *ngIf="userName" class="nav__info">
+      <i class="fa fa-user"></i>
+      {{ userName }}
+    </div>
+
+    <div class="nav__version">
+      <i
+        class="fa fa-circle nav__info_online"
+        [ngClass]="hasOnLine$ | async"
+      ></i>
+      {{ appVersion }}
+    </div>
+  </div>
+
+  <div
+    *ngIf="(isShowNav$ | async)"
+    class="nav__closer"
+    (click)="onToggleNav()"
+  ></div>
+</aside>
+
+<article
+  #cnt
+  [ngClass]="hasVisibleCnt$ | async"
+  class="cnt"
+>
+
+  <header
+    class="header"
+  >
+
+    <dx-button
+      *ngIf="(isSidebarDisabled | async)"
+      icon="fa fa-bars"
+      class="header__menu"
+      (click)="onToggleNav()"
+    ></dx-button>
+  </header>
+
+  <main class="content">
+    <ng-content select="[body]"></ng-content>
+  </main>
+</article>
+
+

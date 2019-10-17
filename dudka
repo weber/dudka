@@ -17,7 +17,7 @@ if (isEmpty(process.argv.slice(2))) {
       const opts = body && body.length > 0 ? { input: body } : {}
       return require('execa').shell(action, opts)
     },
-    debug: !!process.env.DEBUG
+    debug: true
   })
 
 } else {

@@ -1,0 +1,22 @@
+
+<wrapper-skeleton
+  [nameApp]="nameApp"
+  [logoImg]="logoImg"
+  [navigationList]="navigationList"
+  [userName]="nameUser$ | async"
+  [version]="version"
+  [isShowSidebar]="false"
+  [sidebarDisabled]="false"
+>
+  <ng-container  nav>
+
+  </ng-container>
+
+  <ng-container  body>
+
+    <router-outlet></router-outlet>
+
+  </ng-container>
+
+</wrapper-skeleton>
+
