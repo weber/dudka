@@ -108,8 +108,8 @@ module.exports = {
 							'angular2-fontawesome',
 							'husky'
 						],
-						loglevel: 'silent',
-						'cache-min': 999999999
+						// loglevel: 'silent',
+						// 'cache-min': 999999999
 					}, function (err) {
 						spinner.stop()
 					});
