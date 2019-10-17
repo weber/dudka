@@ -40,7 +40,7 @@ module.exports = {
 					{
 						type: 'input',
 						name: 'repo',
-						default: 'git+ssh://cl-tfs2018:22/tfs/CK-11/WebDev/_git/YOUR_NAME_PROJECT',
+						default: 'YOUR_NAME_PROJECT',
 						message: "Введите адерс репозитория?"
 					},
 					{
@@ -71,50 +71,51 @@ module.exports = {
 					})
 				})
 				.then(r => {
-					 const spinner = ora('Инициализация базового приложения').start();
+					 const spinner = ora('Инициализация пакетов приложения').start();
 						spinner.color = 'yellow';
 					return new Promise(res => {
-						const pathTo =  path.resolve(process.cwd(), r.name)
-						
-						npm.install({
-							dir: pathTo,
-							dependencies: [
-								'@angular/cdk',
-								'@compodoc/compodoc',
-								'@angular/router',
-								'@ngrx/effects ',
-								'@ngrx/store',
-								'date-fns',
-								'devextreme',
-								'devextreme-angular',
-								'devextreme-intl',
-								'downloadjs ',
-								'hammerjs',
-								'module-alias',
-								'monitel-web-styles@git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles',
-								'npm-check-updates',
-								'ramda',
-								'ngx-toastit',
-								'ramda-extension',
-								'reflect-metadata',
-								'@fortawesome/fontawesome-free',
-								'@ngrx/schematics',
-								'@ngrx/store-devtools',
-								'@typed-f/either',
-								'@typed-f/lens',
-								'@typed-f/maybe',
-								'@typed-f/function',
-								'angular2-fontawesome',
-								'husky'
-							],
-							loglevel: 'silent',
-							'cache-min': 999999999
-						}, function (err) {
-							spinner.stop()
-							return res(r)
-						});
+					
 					})
 					
+					const pathTo =  path.resolve(process.cwd(), r.name)
+					
+					npm.install({
+						dir: pathTo,
+						dependencies: [
+							'@angular/cdk',
+							'@compodoc/compodoc',
+							'@angular/router',
+							'@ngrx/effects ',
+							'@ngrx/store',
+							'date-fns',
+							'devextreme',
+							'devextreme-angular',
+							'devextreme-intl',
+							'downloadjs ',
+							'hammerjs',
+							'module-alias',
+							'monitel-web-styles@git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles',
+							'npm-check-updates',
+							'ramda',
+							'ngx-toastit',
+							'ramda-extension',
+							'reflect-metadata',
+							'@fortawesome/fontawesome-free',
+							'@ngrx/schematics',
+							'@ngrx/store-devtools',
+							'@typed-f/either',
+							'@typed-f/lens',
+							'@typed-f/maybe',
+							'@typed-f/function',
+							'angular2-fontawesome',
+							'husky'
+						],
+						loglevel: 'silent',
+						'cache-min': 999999999
+					}, function (err) {
+						spinner.stop()
+					});
+					return r
 				})
 				
 				.then(r => {
