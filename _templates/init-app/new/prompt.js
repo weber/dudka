@@ -98,10 +98,6 @@ module.exports = {
 								'ngx-toastit',
 								'ramda-extension',
 								'reflect-metadata',
-								'sails-disk@git://github.com/balderdashy/sails-disk.git#associations',
-								'lodash'
-							],
-							devDependencies: [
 								'@fortawesome/fontawesome-free',
 								'@ngrx/schematics',
 								'@ngrx/store-devtools',
