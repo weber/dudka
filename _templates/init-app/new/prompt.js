@@ -106,7 +106,9 @@ module.exports = {
 							'@typed-f/maybe',
 							'@typed-f/function',
 							'angular2-fontawesome',
-							'husky'
+							'husky',
+							'ngx-toastit',
+							'monitel-web-styles@git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles'
 						],
 						// loglevel: 'silent',
 						// 'cache-min': 999999999
@@ -114,7 +116,7 @@ module.exports = {
 						spinner.stop()
 						return
 					});
-					return r
+			
 				})
 				
 				.then(r => {
