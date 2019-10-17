@@ -57,8 +57,7 @@ module.exports = {
 				
 					return new Promise(res => {
 						const sp = spawn('ng', ['new', r.name, '--routing=true', '--skipInstall=false', '--style=scss', '--prefix=c'], {
-							stdio: ['inherit', 'inherit', 'inherit'],
-							shell: true
+							stdio: ['inherit', 'inherit', 'inherit']
 						})
 						
 						
@@ -108,7 +107,7 @@ module.exports = {
 								'angular2-fontawesome',
 								'husky'
 							],
-							// loglevel: 'silent',
+							loglevel: 'silent',
 							'cache-min': 999999999
 						}, function (err) {
 							spinner.stop()
