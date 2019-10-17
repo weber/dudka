@@ -92,10 +92,10 @@ module.exports = {
 							'downloadjs ',
 							'hammerjs',
 							'module-alias',
-							'monitel-web-styles@git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles',
+							
 							'npm-check-updates',
 							'ramda',
-							'ngx-toastit',
+							
 							'ramda-extension',
 							'reflect-metadata',
 							'@fortawesome/fontawesome-free',
@@ -112,6 +112,7 @@ module.exports = {
 						// 'cache-min': 999999999
 					}, function (err) {
 						spinner.stop()
+						return
 					});
 					return r
 				})
