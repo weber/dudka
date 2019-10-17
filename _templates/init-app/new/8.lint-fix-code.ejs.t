@@ -1,3 +1,3 @@
 ---
-sh: cd <%=pathTo%> && npm i && npm run lint:fix
+sh: cd <%=pathTo%> && npm run lint:fix
 ---

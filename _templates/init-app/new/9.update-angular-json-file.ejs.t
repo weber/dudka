@@ -1,5 +1,5 @@
 ---
-to: <%=name%>angular.json
+to: <%=name%>/angular.json
 ---
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
