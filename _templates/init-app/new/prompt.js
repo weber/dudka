@@ -70,59 +70,7 @@ module.exports = {
 						
 					})
 				})
-				.then(r => {
-					
-					return new Promise((resolve, reject) => {
-						const spinner = ora('Инициализация пакетов приложения').start();
-						spinner.color = 'yellow';
-						
-						
-						const pathTo =  path.resolve(process.cwd(), r.name)
-						
-						npm.install({
-							dir: pathTo,
-							dependencies: [
-								'@angular/cdk',
-								'@compodoc/compodoc',
-								'@angular/router',
-								'@ngrx/effects ',
-								'@ngrx/store',
-								'date-fns',
-								'devextreme',
-								'devextreme-angular',
-								'devextreme-intl',
-								'downloadjs ',
-								'hammerjs',
-								'module-alias',
-								
-								'npm-check-updates',
-								'ramda',
-								
-								'ramda-extension',
-								'reflect-metadata',
-								'@fortawesome/fontawesome-free',
-								'@ngrx/schematics',
-								'@ngrx/store-devtools',
-								'@typed-f/either',
-								'@typed-f/lens',
-								'@typed-f/maybe',
-								'@typed-f/function',
-								'angular2-fontawesome',
-								'husky',
-								'ngx-toastit',
-								'monitel-web-styles@git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles'
-							],
-							// loglevel: 'silent',
-							// 'cache-min': 999999999
-						}, function (err) {
-							console.log('EROOR', err)
-							spinner.stop()
-							return resolve(r)
-						});
-					})
-					
-			
-				})
+				
 				
 				.then(r => {
 					const pathTo =  path.resolve(process.cwd(), r.name)
