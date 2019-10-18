@@ -30,5 +30,5 @@ sh: cd <%=pathTo%> && npm i
 "angular2-fontawesome":"*",
 "husky":"*",
 "ngx-toastit":"*",
-"monitel-web-styles":"git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles"
+"monitel-web-styles":"git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles",
 

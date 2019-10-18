@@ -56,7 +56,7 @@ module.exports = {
 				.then(r => {
 				
 					return new Promise(res => {
-						const sp = spawn('ng', ['new', r.name, '--routing=true', '--skipInstall=false', '--style=scss', '--prefix=c'], {
+						const sp = spawn('ng', ['new', r.name, '--routing=true', '--skipInstall=true', '--style=scss', '--prefix=c'], {
 							stdio: ['inherit', 'inherit', 'inherit'],
 							shell: true
 						})
@@ -107,6 +107,27 @@ module.exports = {
 					setOptionPackage (pathToPackageJson, 'test', `${pathNG} test`)
 					setOptionPackage (pathToPackageJson, 'e2e', `${pathNG} e2e`)
 					return r
+				})
+				.then(r => {
+					
+					return new Promise(res => {
+						const sp = spawn('npm', ['i',
+						'@compodoc/compodoc'
+						], {
+							stdio: ['inherit', 'inherit', 'inherit'],
+							shell: true,
+							cwd: r.pathTo
+						})
+						
+						
+						
+						sp.on('close', _ => {
+							//	spinner.stop()
+							console.log("[", "базовое приложение создано".white,   "]");
+							return res(r)
+						})
+						
+					})
 				})
 				.then(r => {
 					console.log('VARIABLE', r)
