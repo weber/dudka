@@ -112,7 +112,21 @@ module.exports = {
 					
 					return new Promise(res => {
 						const sp = spawn('npm', ['i',
-						'@compodoc/compodoc'
+							'@compodoc/compodoc',
+							'@angular/cdk',
+							'@ngrx/effects',
+							'@ngrx/store',
+							'date-fns',
+							'devextreme',
+							'devextreme-angular',
+							'devextreme-intl',
+							'downloadjs',
+							'hammerjs',
+							'module-alias',
+							'npm-check-updates',
+							'ramda',
+							'ramda-extension',
+							'reflect-metadata'
 						], {
 							stdio: ['inherit', 'inherit', 'inherit'],
 							shell: true,
@@ -123,7 +137,36 @@ module.exports = {
 						
 						sp.on('close', _ => {
 							//	spinner.stop()
-							console.log("[", "базовое приложение создано".white,   "]");
+							console.log("[", "Установлены зависимости приложения".white,   "]");
+							return res(r)
+						})
+						
+					})
+				})
+				.then(r => {
+					
+					return new Promise(res => {
+						const sp = spawn('npm', ['i',
+							'@fortawesome/fontawesome-free',
+							'@ngrx/schematics',
+							'@ngrx/store-devtools',
+							'@typed-f/either',
+							'@typed-f/function',
+							'@typed-f/lens',
+							'@typed-f/maybe',
+							'angular2-fontawesome',
+							'husky',
+							'ngx-toastit',
+							'monitel-web-styles@git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles'
+						], {
+							stdio: ['inherit', 'inherit', 'inherit'],
+							shell: true,
+							cwd: r.pathTo
+						})
+						
+						sp.on('close', _ => {
+							//	spinner.stop()
+							console.log("[", "Установлены зависимости разработки".white,   "]");
 							return res(r)
 						})
 						
