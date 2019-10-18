@@ -6,11 +6,13 @@ const path = require('path')
 const defaultTemplates = path.join(__dirname, '_templates')
 
 process.env.HYGEN_OVERWRITE=1
+function log (f) {}
 
 if (isEmpty(process.argv.slice(2))) {
   runner(['init-app', 'new'], {
     templates: defaultTemplates,
     cwd: process.cwd(),
+    logger: new Logger(log.bind(log)),
     createPrompter: () => require('enquirer'),
     exec: (action, body) => {
       const opts = body && body.length > 0 ? { input: body } : {}
