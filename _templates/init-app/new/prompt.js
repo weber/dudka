@@ -13,6 +13,9 @@ const inquirer = require('inquirer')
 const colors = require("colors");
 const replace = require('replace-in-file');
 const npm = require('enpeem');
+const gitconfig = require('gitconfig')
+
+
 
 module.exports = {
 	prompt: ({ prompter, args }) => {
@@ -41,23 +44,131 @@ module.exports = {
 						type: 'input',
 						name: 'repo',
 						default: 'YOUR_NAME_PROJECT',
-						message: "Введите адерс репозитория?"
-					},
-					{
-						type: 'input',
-						name: 'author',
-						default: 'Фамилия Имя <YOUR_MAIL@monitel.com>',
-						message: "Введите Ф.И. и email автора"
+						message: "Введите имя репозитория?"
 					}
 				])
-				.then(({ name, title, iteration, repo, author }) => {
-					return {name, title, iteration, repo, author}
+				.then(({ name, title, iteration, repo }) => {
+					return {name, title, iteration, repo}
 				})
 				.then(r => {
+					return new Promise(res => {
+						gitconfig.get({
+							location: 'global'
+						}).then((config) => {
+							r.author = `${config.name} <${config.emai}>`
+							r.userName = config.name
+							r.userEmail = config.email
+							return res(r)
+						})
+					})
+				})
+				.then(r => {
+					// git checkout -b
+					return new Promise(res => {
+						console.log("[", "Создаем ветку".white,   "]");
+						const sp = spawn('git', ['init'
+						], {
+							stdio: ['inherit', 'inherit', 'inherit'],
+							shell: true,
+							cwd: r.pathTo
+						})
+						
+						sp.on('close', _ => {
+							console.log("[", "Ветка создана".white,   "]");
+							return res(r)
+						})
+						
+					})
+				})
+				.then(r => {
+					
+					if (r.repo && r.repo !== 'YOUR_NAME_PROJECT') {
+						return new Promise(res => {
+							console.log("[", "Привязка к репозиторию проекта".white,   "]");
+							const sp = spawn('git', ['remote',
+								'add', 'origin', 'http://cl-tfs2018:8080/tfs/CK-11/WebDev/_git/',
+								r.repo
+							], {
+								stdio: ['inherit', 'inherit', 'inherit'],
+								shell: true,
+								cwd: r.pathTo
+							})
+							
+							sp.on('close', _ => {
+								console.log("[", "Привязка к репозиторию проекта закончена".white,   "]");
+								return res(r)
+							})
+							
+						})
+					} else {
+						return r
+					}
+					
+				})
+				.then(r => {
+					if (r.repo && r.repo !== 'YOUR_NAME_PROJECT') {
+						return new Promise(res => {
+							console.log("[", "Фиксируем в репозитории".white,   "]");
+							const sp = spawn('git', ['push', '-u', 'origin', '--all'
+							], {
+								stdio: ['inherit', 'inherit', 'inherit'],
+								shell: true,
+								cwd: r.pathTo
+							})
+							
+							sp.on('close', _ => {
+								console.log("[", "Фиксация в репозитории закончена".white,   "]");
+								return res(r)
+							})
+							
+						})
+					} else {
+						return r
+					}
+				})
+				.then(r => {
+					// git checkout -b
+					return new Promise(res => {
+						console.log("[", "Создаем ветку".white,   "]");
+						const sp = spawn('git', ['pull'
+						], {
+							stdio: ['inherit', 'inherit', 'inherit'],
+							shell: true,
+							cwd: r.pathTo
+						})
+						
+						sp.on('close', _ => {
+							console.log("[", "Ветка создана".white,   "]");
+							return res(r)
+						})
+						
+					})
+				})
+				.then(r => {
+						// git checkout -b
+						return new Promise(res => {
+							console.log("[", "Создаем ветку".white,   "]");
+							const sp = spawn('git', ['push', 'checkout', '-b', r.iteration
+							], {
+								stdio: ['inherit', 'inherit', 'inherit'],
+								shell: true,
+								cwd: r.pathTo
+							})
+							
+							sp.on('close', _ => {
+								console.log("[", "Ветка создана".white,   "]");
+								return res(r)
+							})
+							
+						})
+				})
 				
+				.then(r => {
+				  /*const spinner = ora(`Инициализация приложения ${r.name}`).start();
+					spinner.color = 'yellow';*/
 					return new Promise(res => {
 						console.log("[", "Установка базового приложения ".white,   "]");
-						const sp = spawn('ng', ['new', r.name, '--routing=true', '--skipInstall=false', '--style=scss', '--prefix=c'], {
+						const sp = spawn('ng', ['new', r.name, '--commit=false',  '--routing=true', '--skipInstall=false', '--style=scss', '--prefix=c'], {
 							stdio: ['inherit', 'inherit', 'inherit'],
 							shell: true
 						})
@@ -78,8 +189,6 @@ module.exports = {
 					const pathTo =  path.resolve(process.cwd(), r.name)
 					const pathFrom = path.resolve(__dirname, './files/')
 					const pathCopyFrom = path.resolve(__dirname, '../../../', 'files/')
- 
-					console.log('pathCopyFrom',pathCopyFrom)
 					
 					fs.copy(pathCopyFrom, pathTo)
 						.then(() => console.log('success!'))
@@ -148,7 +257,7 @@ module.exports = {
 				.then(r => {
 					
 					return new Promise(res => {
-						console.log("[", "Установка зависимости разработки начата".white,   "]");
+						console.log("[", "Установка зависимостей разработки начата".white,   "]");
 						const sp = spawn('npm', ['i',
 							'@fortawesome/fontawesome-free',
 							'@ngrx/schematics',
@@ -168,15 +277,17 @@ module.exports = {
 						})
 						
 						sp.on('close', _ => {
-							//	spinner.stop()
+							
 							console.log("[", "Установка зависимостей разработки закончена".white,   "]");
 							return res(r)
 						})
 						
 					})
 				})
+				
+				
 				.then(r => {
-					console.log('VARIABLE', r)
+					/*spinner.stop()*/
 					resolve(r)
 				})
 		})
