@@ -109,6 +109,7 @@ module.exports = {
 					return r
 				})
 				.then(r => {
+					console.log('VARIABLE', r)
 					resolve(r)
 				})
 		})

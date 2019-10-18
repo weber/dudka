@@ -2,7 +2,7 @@
 inject: true
 to: package.json
 after: dependencies
-sh: cd <%= cwd %> && npm i
+sh: cd <%=pathTo%> && npm i
 ---
 "@angular/cdk":"*",
 "@compodoc/compodoc":"*",
