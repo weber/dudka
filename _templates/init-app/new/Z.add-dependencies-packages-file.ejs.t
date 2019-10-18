@@ -1,6 +1,6 @@
 ---
 inject: true
-to: package.json
+to: <%=name%>/package.json
 after: dependencies
 sh: cd <%=pathTo%> && npm i
 ---
