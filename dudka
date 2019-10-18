@@ -11,13 +11,12 @@ if (isEmpty(process.argv.slice(2))) {
   runner(['init-app', 'new'], {
     templates: defaultTemplates,
     cwd: process.cwd(),
-    logger: new Logger(console.log.bind(console)),
     createPrompter: () => require('enquirer'),
     exec: (action, body) => {
       const opts = body && body.length > 0 ? { input: body } : {}
       return require('execa').shell(action, opts)
     },
-    debug: true
+    debug: false
   })
 
 } else {

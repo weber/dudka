@@ -56,7 +56,8 @@ module.exports = {
 				.then(r => {
 				
 					return new Promise(res => {
-						const sp = spawn('ng', ['new', r.name, '--routing=true', '--skipInstall=true', '--style=scss', '--prefix=c'], {
+						console.log("[", "Установка базового приложения ".white,   "]");
+						const sp = spawn('ng', ['new', r.name, '--routing=true', '--skipInstall=false', '--style=scss', '--prefix=c'], {
 							stdio: ['inherit', 'inherit', 'inherit'],
 							shell: true
 						})
@@ -111,6 +112,7 @@ module.exports = {
 				.then(r => {
 					
 					return new Promise(res => {
+						console.log("[", "Установка зависимостей приложения начата".white,   "]");
 						const sp = spawn('npm', ['i',
 							'@compodoc/compodoc',
 							'@angular/cdk',
@@ -137,7 +139,7 @@ module.exports = {
 						
 						sp.on('close', _ => {
 							//	spinner.stop()
-							console.log("[", "Установлены зависимости приложения".white,   "]");
+							console.log("[", "Установка зависимостей приложения закончена".white,   "]");
 							return res(r)
 						})
 						
@@ -146,6 +148,7 @@ module.exports = {
 				.then(r => {
 					
 					return new Promise(res => {
+						console.log("[", "Установка зависимости разработки начата".white,   "]");
 						const sp = spawn('npm', ['i',
 							'@fortawesome/fontawesome-free',
 							'@ngrx/schematics',
@@ -166,7 +169,7 @@ module.exports = {
 						
 						sp.on('close', _ => {
 							//	spinner.stop()
-							console.log("[", "Установлены зависимости разработки".white,   "]");
+							console.log("[", "Установка зависимостей разработки закончена".white,   "]");
 							return res(r)
 						})
 						
