@@ -48,7 +48,13 @@ module.exports = {
 					}
 				])
 				.then(({ name, title, iteration, repo }) => {
+					
 					return {name, title, iteration, repo}
+				})
+				.then(r => {
+					const pathTo =  path.resolve(process.cwd(), r.name)
+					r.pathTo = pathTo
+					return r
 				})
 				.then(r => {
 					return new Promise(res => {
@@ -63,9 +69,13 @@ module.exports = {
 					})
 				})
 				.then(r => {
+					fs.ensureDirSync(r.pathTo)
+					return r
+				})
+				.then(r => {
 					// git checkout -b
 					return new Promise(res => {
-						console.log("[", "Создаем ветку".white,   "]");
+						console.log("[", "Инициализация GIT".white,   "]");
 						const sp = spawn('git', ['init'
 						], {
 							stdio: ['inherit', 'inherit', 'inherit'],
@@ -74,20 +84,19 @@ module.exports = {
 						})
 						
 						sp.on('close', _ => {
-							console.log("[", "Ветка создана".white,   "]");
+							console.log("[", "Инициализация GIT - закончена".white,   "]");
 							return res(r)
 						})
 						
 					})
 				})
-				.then(r => {
+				/*.then(r => {
 					
 					if (r.repo && r.repo !== 'YOUR_NAME_PROJECT') {
 						return new Promise(res => {
 							console.log("[", "Привязка к репозиторию проекта".white,   "]");
-							const sp = spawn('git', ['remote',
-								'add', 'origin', 'http://cl-tfs2018:8080/tfs/CK-11/WebDev/_git/',
-								r.repo
+								const sp = spawn('git', ['remote', 'add', 'origin', `ssh://cl-tfs2018:8080/tfs/CK-11/WebDev/_git/${r.repo}`
+							
 							], {
 								stdio: ['inherit', 'inherit', 'inherit'],
 								shell: true,
@@ -95,6 +104,7 @@ module.exports = {
 							})
 							
 							sp.on('close', _ => {
+								console.log('error', _)
 								console.log("[", "Привязка к репозиторию проекта закончена".white,   "]");
 								return res(r)
 							})
@@ -125,12 +135,34 @@ module.exports = {
 					} else {
 						return r
 					}
-				})
-				.then(r => {
+				})*/
+				/*.then(r => {
+					if (r.repo && r.repo !== 'YOUR_NAME_PROJECT') {
+						return new Promise(res => {
+							console.log("[", "Создаем ветку".white,   "]");
+							const sp = spawn('git', ['pull'
+							], {
+								stdio: ['inherit', 'inherit', 'inherit'],
+								shell: true,
+								cwd: r.pathTo
+							})
+							
+							sp.on('close', _ => {
+								console.log("[", "Ветка создана".white,   "]");
+								return res(r)
+							})
+							
+						})
+					} else {
+						return r
+					}
+					
+				})*/
+				/*.then(r => {
 					// git checkout -b
 					return new Promise(res => {
-						console.log("[", "Создаем ветку".white,   "]");
-						const sp = spawn('git', ['pull'
+						console.log("[", `Создаем ветку master`.blue,   "]");
+						const sp = spawn('git', ['checkout', '-b', 'master'
 						], {
 							stdio: ['inherit', 'inherit', 'inherit'],
 							shell: true,
@@ -138,17 +170,17 @@ module.exports = {
 						})
 						
 						sp.on('close', _ => {
-							console.log("[", "Ветка создана".white,   "]");
+							console.log("[", "Ветка master создана".white,   "]");
 							return res(r)
 						})
 						
 					})
-				})
+				})*/
 				.then(r => {
 						// git checkout -b
 						return new Promise(res => {
-							console.log("[", "Создаем ветку".white,   "]");
-							const sp = spawn('git', ['push', 'checkout', '-b', r.iteration
+							console.log("[", `Создаем ветку ${r.iteration}`.blue,   "]");
+							const sp = spawn('git', ['checkout', '-b', r.iteration
 							], {
 								stdio: ['inherit', 'inherit', 'inherit'],
 								shell: true,
@@ -186,18 +218,18 @@ module.exports = {
 				
 				
 				.then(r => {
-					const pathTo =  path.resolve(process.cwd(), r.name)
+					
 					const pathFrom = path.resolve(__dirname, './files/')
 					const pathCopyFrom = path.resolve(__dirname, '../../../', 'files/')
 					
-					fs.copy(pathCopyFrom, pathTo)
+					fs.copy(pathCopyFrom, r.pathTo)
 						.then(() => console.log('success!'))
 						.catch(err => console.error(err))
 					
 					
 					console.log(r.name.green, r.title.red, r.iteration.yellow)
 					
-					r.pathTo = pathTo
+					
 
 					return r
 				})
