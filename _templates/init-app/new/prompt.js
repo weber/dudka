@@ -301,6 +301,7 @@ module.exports = {
 							'angular2-fontawesome',
 							'husky',
 							'ngx-toastit',
+							'on-push-tslint',
 							'monitel-web-styles@git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles'
 						], {
 							stdio: ['inherit', 'inherit', 'inherit'],

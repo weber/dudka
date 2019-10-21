@@ -86,14 +86,9 @@ export class SkeletonComponent implements OnInit, OnChanges {
     this.isShowNav$ = new BehaviorSubject(this.isShowSidebar)
     this.hasShowNav$ = new BehaviorSubject('s-hide')
 
-
-
-
-
     let instanceIsShowFilter =  this.SkeletonService.getInstanceIsShowFilter()
     let instanceActiveItemFilter =  this.SkeletonService.getInstanceActiveItemFilter()
 
-    console.log('this.version', this.version)
     instanceActiveItemFilter.subscribe({
       next: (v) => {
         this.activeItem = v
@@ -109,7 +104,6 @@ export class SkeletonComponent implements OnInit, OnChanges {
       }
 
     })
-
 
     /**
      * Отображать контентную часть с панелью навигации(Sidebar) или без
@@ -129,16 +123,6 @@ export class SkeletonComponent implements OnInit, OnChanges {
       let status  = v === true ? this.msgFullscreenOn : this.msgFullscreenOff
       this.msgFullScreen$.next(status)
     })
-
-    /*this.isShowNav$.subscribe(v => {
-      console.log('isShowNav$', v)
-      if (v) {
-        this.hasShowNav$.next('s-show')
-      } else {
-        this.hasShowNav$.next('s-hide')
-      }
-    })*/
-
   }
 
   ngOnChanges (changes: SimpleChanges): void {
@@ -147,24 +131,10 @@ export class SkeletonComponent implements OnInit, OnChanges {
       this.isSidebarDisabled.next(!changes.sidebarDisabled.currentValue)
     }
 
-    if (changes.isShowSidebar) {
-      console.log('isShowSidebar', changes.isShowSidebar)
-
-    }
-
-    /*if (this.isShowSidebar === true || this.isShowSidebar === false)
-     this.isShowNav$.next(this.isShowSidebar)*/
     this.isShowNav$.next(this.isShowSidebar)
   }
 
-
-
-
   ngOnInit (): void {
-
-
-
-    console.log('isShowSidebar>>>>', this.isShowSidebar)
     this.isShowNav$.next(this.isShowSidebar)
     if (this.isShowSidebar === false) {
       this.isShowNav$.next(false)
@@ -315,18 +285,12 @@ export class SkeletonComponent implements OnInit, OnChanges {
    * Переключатель отображения навигации(sidebar)
    */
   onToggleNav (): void {
-
-
-    console.log('CLICK', this.isShowNav$.value)
     let isShowNav = !this.isShowNav$.value
-    console.log('CLICK!', isShowNav)
     let showNav = isShowNav === true ? 's-withNav' : 's-fullscreen'
     let showSidebar = isShowNav === true ? 's-show' : 's-hide'
     this.isShowNav$.next(isShowNav)
     this.hasVisibleCnt$.next(showNav)
     this.hasShowNav$.next(showSidebar)
-
-
   }
 
   /**
@@ -335,13 +299,11 @@ export class SkeletonComponent implements OnInit, OnChanges {
    */
   onChangeScreen (): void {
     let mql = window.matchMedia('screen and (min-width: 1024px)')
-    // this.isShowNav = mql.matches
-    this.isShowNav$.next(mql.matches)
+    if (this.isShowSidebar === true) this.isShowNav$.next(mql.matches)
 
     window.addEventListener('resize', (e) => {
       mql = window.matchMedia('screen and (min-width: 1024px)')
-      // this.isShowNav = mql.matches
-      this.isShowNav$.next(mql.matches)
+      if (this.isShowSidebar === true) this.isShowNav$.next(mql.matches)
     })
   }
 
