@@ -34,7 +34,7 @@ export const routes: Routes = [
     component: NotFoundComponent,
     data: {
       title: 'Справка',
-      link: `/webswitching/help/by-id?helpId=SWITCHING_LOGBOOK`,
+      link: 'HELP_LINK',
       faIconName: 'fa-question-circle',
       faIconColor: '#fff',
       placeholder: '',

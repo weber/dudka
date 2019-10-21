@@ -134,7 +134,19 @@ export class SkeletonComponent implements OnInit, OnChanges {
     this.isShowNav$.next(this.isShowSidebar)
   }
 
+  /**
+   * Возвращает значение глобального параметра по ключю
+   * @param nameParam
+   * @return {Window}
+   */
+  getTransformGlobalParam (nameParam: string): string {
+    return window[nameParam] || ''
+  }
+
+
   ngOnInit (): void {
+    const self = this
+
     this.isShowNav$.next(this.isShowSidebar)
     if (this.isShowSidebar === false) {
       this.isShowNav$.next(false)
@@ -179,7 +191,8 @@ export class SkeletonComponent implements OnInit, OnChanges {
     async function prepareDinamicLinkForNavigationList (array: Array<any>): Promise<void> {
       for (const i of array) {
         if (i.data.isDinamic) {
-          let req = `${HOST_API}${i.data.link}`
+         // let req = `${HOST_API}${i.data.link}`
+          let req = self.getTransformGlobalParam(i.data.link)
           const headers = {}
           const para = {}
           headers['Accept'] = 'application/json'

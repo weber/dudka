@@ -58,7 +58,7 @@
 
 
         <a
-          *ngIf="navItem.data.isLinkNative && navItem.data.visible"
+          *ngIf="navItem.data.isLinkNative && navItem.data.visible && navItem.data.link"
           class="nav__menu__link"
           [href]="navItem.data.link"
           routerLinkActive="s-active"
