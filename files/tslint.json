@@ -1,6 +1,5 @@
 {
   "extends": "tslint:recommended",
-
   "linterOptions": {
     "exclude": [
       "dist/",
@@ -14,9 +13,15 @@
     ]
   },
   "rulesDirectory": [
-    "codelyzer"
+    "codelyzer",
+    "node_modules/on-push-tslint"
   ],
   "rules": {
+    "on-push-change-detection": [
+      true,
+      ".*.spec.ts$",
+      "app.component.ts"
+    ],
     "array-type": false,
     "arrow-parens": false,
     "deprecation": false,
