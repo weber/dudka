@@ -55,18 +55,35 @@ export class ContentComponent implements OnInit {
     })
   }
 
+  /**
+   * OnInit
+   * @return {void}
+   */
   ngOnInit (): void {
     this.hasChildNode()
   }
 
+  /**
+   * Триггер отображения информации о пользователе
+   * @return {void}
+   */
   onShowInfo (): void {
     this.hasShowInfo = !this.hasShowInfo
   }
 
+  /**
+   * Триггер скрытия  информации о пользователе
+   * @return {void}
+   */
   onHideInfo (): void {
     this.hasShowInfo = false
   }
 
+  /**
+   * Добавляет css класс отображение или сокрытия для  правого слота в хедере если в нем есть
+   * ли дочерние элементы
+   * @return {void}
+   */
   hasChildNode (): void {
     if (this.contentHeaderBodyRight.nativeElement.childNodes[0].childNodes.length > 0) {
       this.contentHeaderBodyRight.nativeElement.classList.add('s-show')

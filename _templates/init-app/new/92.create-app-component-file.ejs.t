@@ -52,6 +52,9 @@ export class AppComponent implements OnInit {
 
   }
 
+ /**
+  * OnInit
+  */
   ngOnInit (): void {
     this.user$ = this.$store
       .pipe(select(UserSelector))

@@ -57,6 +57,10 @@ export class IndexComponent implements OnInit {
   ) {
   }
 
+  /**
+   * OnInit
+   * @return {void}
+   */
   ngOnInit (): void {
     this.title = this.route.snapshot.data.title
     let filter = {

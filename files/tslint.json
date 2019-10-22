@@ -1,5 +1,8 @@
 {
-  "extends": "tslint:recommended",
+  "extends": [
+    "tslint-config-security",
+    "tslint:recommended"
+  ],
   "linterOptions": {
     "exclude": [
       "dist/",
@@ -25,6 +28,11 @@
     "array-type": false,
     "arrow-parens": false,
     "deprecation": false,
+    "no-redundant-jsdoc": false,
+    "jsdoc-format": [true, "check-multiline-start"],
+    "completed-docs": [true, {
+      "methods": {"privacies": ["public", "protected"]}
+    }],
     "import-blacklist": [
       true,
       "rxjs/Rx"
@@ -89,8 +97,7 @@
     "component-selector": false,
     "no-output-on-prefix": false,
     "curly": false,
-    "jsdoc-format": true,
-    "no-redundant-jsdoc": false,
+
     "semicolon": [true, "never"],
     "no-inferrable-types": false,
     "no-string-literal": false,

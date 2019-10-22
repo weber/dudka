@@ -12,10 +12,10 @@ export class DetectNetwork {
   }
 
 
-  /*ngOnDestroy(): void {
-    this.stateNetwork.forEach(event => window.removeEventListener(event, this.updateOnlineStatus))
-  }*/
-
+  /**
+   * Метод наблюдатель за состоянием сети
+   * @return {void}
+   */
   updateOnlineStatus (): void {
     this.isOnline = navigator.onLine || false
     this.statusNetwork$.next(this.isOnline)

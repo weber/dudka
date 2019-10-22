@@ -9,7 +9,7 @@ import {merge as RMerge} from 'ramda'
  * приоритет имеет appsettings.Production.json
  * Если в appsettings.Production.json не указан какойто параметр он береться из settings.json
  */
-export async function getSettings () {
+export async function getSettings (): Promise<any> {
 
   /**
    * Выполняются все промисы в случаи падения одного из них не вызывается исключение

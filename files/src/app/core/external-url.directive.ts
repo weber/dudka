@@ -9,6 +9,11 @@ import {Router} from '@angular/router'
 export class ExternalUrlDirective  {
   constructor (private el: ElementRef, private router: Router) {}
 
+  /**
+   * clicked
+   * @param {Event} event
+   * @return {any}
+   */
   @HostListener('click', ['$event'])
   clicked (event: Event): any {
     const url = this.el.nativeElement.href

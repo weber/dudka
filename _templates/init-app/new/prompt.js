@@ -253,6 +253,23 @@ module.exports = {
 				.then(r => {
 					
 					return new Promise(res => {
+						console.log("[", "Установка завистсмостей ангулара".white,   "]");
+						const sp = spawn('npm', ['i'], {
+							stdio: ['inherit', 'inherit', 'inherit'],
+							shell: true,
+							cwd: r.pathTo
+						})
+						
+						sp.on('close', _ => {
+							console.log("[", "Установка завистсмостей ангулара закончена".white,   "]");
+							return res(r)
+						})
+						
+					})
+				})
+				.then(r => {
+					
+					return new Promise(res => {
 						console.log("[", "Установка зависимостей приложения начата".white,   "]");
 						const sp = spawn('npm', ['i',
 							'@compodoc/compodoc',
@@ -302,6 +319,7 @@ module.exports = {
 							'husky',
 							'ngx-toastit',
 							'on-push-tslint',
+							'tslint-config-security',
 							'monitel-web-styles@git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles'
 						], {
 							stdio: ['inherit', 'inherit', 'inherit'],
@@ -310,14 +328,13 @@ module.exports = {
 						})
 						
 						sp.on('close', _ => {
-							
 							console.log("[", "Установка зависимостей разработки закончена".white,   "]");
 							return res(r)
 						})
 						
 					})
 				})
-				
+			
 				
 				.then(r => {
 					/*spinner.stop()*/

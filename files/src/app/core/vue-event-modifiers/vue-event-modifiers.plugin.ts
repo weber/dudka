@@ -38,12 +38,15 @@ export class VueEventModifiersPlugin {
 
   }
 
-  // ---
   // PUBLIC METHODS.
-  // ---
 
-  // I bind the given event handler to the given element. Returns a function that
-  // tears-down the event binding.
+  /**
+   * I bind the given event handler to the given element. Returns a function that tears-down the event binding.
+   * @param {HTMLElement} element
+   * @param {string} higherOrderEventName
+   * @param {} handler
+   * @return {}
+   */
   public addEventListener (
     element: HTMLElement,
     higherOrderEventName: string,
@@ -56,9 +59,13 @@ export class VueEventModifiersPlugin {
 
   }
 
-
-  // I bind the given event handler to the given global element selector. Returns a
-  // function that tears-down the event binding.
+  /**
+   * I bind the given event handler to the given global element selector. Returns a function that tears-down the event binding.
+   * @param {string} higherOrderElement
+   * @param {string} higherOrderEventName
+   * @param {} handler
+   * @return {}
+   */
   public addGlobalEventListener (
     higherOrderElement: string,
     higherOrderEventName: string,
@@ -72,10 +79,12 @@ export class VueEventModifiersPlugin {
 
   }
 
-
-  // I determine if the given event name is supported by this plug-in. For each event
-  // binding, the plug-ins are tested in the reverse order of the EVENT_MANAGER_PLUGINS
-  // multi-collection. Angular will use the first plug-in that supports the event.
+  /**
+   * I determine if the given event name is supported by this plug-in. For each event binding, the plug-ins are tested
+   * in the reverse order of the EVENT_MANAGER_PLUGINS multi-collection. Angular will use the first plug-in that supports the event.
+   * @param {string} eventName
+   * @return {boolean}
+   */
   public supports ( eventName: string ): boolean {
 
     let eventPattern = /^[a-z]+(?:\.(?:stop|prevent|capture|self|once|passive))+$/
@@ -84,11 +93,12 @@ export class VueEventModifiersPlugin {
 
   }
 
-  // ---
   // PRIVATE METHODS.
-  // ---
 
-  // I determine if the current environment supports Passive event handlers.
+  /**
+   * I determine if the current environment supports Passive event handlers.
+   * @return {boolean}
+   */
   private detectPassiveSupport (): boolean {
 
     let support = false
@@ -122,7 +132,11 @@ export class VueEventModifiersPlugin {
   }
 
 
-  // I parse the "higher order" element selector into an actual browser DOM reference.
+  /**
+   * I parse the "higher order" element selector into an actual browser DOM reference.
+   * @param {string} selector
+   * @return {EventTarget}
+   */
   private parseHigherOrderElement ( selector: string ): EventTarget {
 
     switch ( selector ) {
@@ -142,9 +156,11 @@ export class VueEventModifiersPlugin {
 
   }
 
-
-  // I parse the "higher order" event name into the event configuration that will be
-  // used to bind the underlying event handler.
+  /**
+   * I parse the "higher order" event name into the event configuration that will be used to bind the underlying event handler.
+   * @param {string} eventName
+   * @return {EventConfig}
+   */
   private parseHigherOrderEventName ( eventName: string ): EventConfig {
 
     let parts = eventName.split( '.' )
@@ -194,10 +210,14 @@ export class VueEventModifiersPlugin {
 
   }
 
-
-  // I bind the given event handler to the given event target using the given event
-  // configuration. I can be used for both local and global targets. Returns a function
-  // that tears-down the event binding.
+  /**
+   * I bind the given event handler to the given event target using the given event configuration.
+   * I can be used for both local and global targets. Returns a function that tears-down the event binding.
+   * @param {EventTarget} target
+   * @param {EventConfig} eventConfig
+   * @param {(e: any) => void} handler
+   * @return {() => void}
+   */
   private setupEventBinding (
     target: EventTarget,
     eventConfig: EventConfig,
@@ -220,18 +240,29 @@ export class VueEventModifiersPlugin {
     // NOTE: We are remaining inside the Angular Zone (if it is loaded).
     addProxyFunction()
 
-    return( removeProxyFunction )
+    return (removeProxyFunction)
 
     // -- Hoisted Functions -- //
-
+    /**
+     * addProxyFunction
+     * @return {() => void}
+     */
     function addProxyFunction (): void {
       target.addEventListener( eventConfig.name, proxyFunction, options )
     }
-
+    /**
+     * removeProxyFunction
+     * @return {() => void}
+     */
+    // tslint:disable-next-line:completed-docs
     function removeProxyFunction (): void {
       target.removeEventListener( eventConfig.name, proxyFunction, options )
     }
-
+    /**
+     * proxyFunction
+     * @return {() => void}
+     */
+    // tslint:disable-next-line:completed-docs
     function proxyFunction ( event: Event ): void {
 
       // NOTE: If the target is not Self, the handler won't be called. But, a

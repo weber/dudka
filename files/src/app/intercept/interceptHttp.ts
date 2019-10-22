@@ -18,6 +18,12 @@ export class ErrorInterceptor implements HttpInterceptor {
   ) {}
 
 
+  /**
+   * Перехватчик ошибок запросов
+   * @param {HttpRequest<any>} req
+   * @param {HttpHandler} next
+   * @return {Observable<HttpEvent<any>>}
+   */
   intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       retry(1),
@@ -34,7 +40,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             errorMessage = error.error.errorMessage
           } else {
             errorMessage = error.status.toString()
-           //  notify(`Ошибка - ${errorMessage}`, 'error', 5000)
+            //  notify(`Ошибка - ${errorMessage}`, 'error', 5000)
           }
         }
 

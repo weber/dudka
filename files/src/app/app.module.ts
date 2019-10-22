@@ -43,7 +43,14 @@ import {ToastitModule} from 'ngx-toastit'
     AppLocalizeModule,
     HttpClientModule,
     SkeletonAppModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({}, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+      },
+    }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
     CommonModule,

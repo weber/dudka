@@ -14,6 +14,10 @@ export class UserService {
     private http: HttpClient,
   ) { }
 
+  /**
+   * Возвращает Информацию о пользователе
+   * @return {Observable<UserModel>}
+   */
   getUser (): Observable<UserModel> {
     return this.http.get(`${HOST_API}/webswitching/user/info`, {withCredentials: true})
       .pipe(

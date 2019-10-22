@@ -125,6 +125,10 @@ export class SkeletonComponent implements OnInit, OnChanges {
     })
   }
 
+  /**
+   * OnChanges
+   * @return {void}
+   */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.sidebarDisabled) {
       this.SkeletonService.setSidebarDisabled(!changes.sidebarDisabled.currentValue)
@@ -143,7 +147,10 @@ export class SkeletonComponent implements OnInit, OnChanges {
     return window[nameParam] || ''
   }
 
-
+  /**
+   * OnInit
+   * @return {void}
+   */
   ngOnInit (): void {
     const self = this
 
@@ -191,7 +198,7 @@ export class SkeletonComponent implements OnInit, OnChanges {
     async function prepareDinamicLinkForNavigationList (array: Array<any>): Promise<void> {
       for (const i of array) {
         if (i.data.isDinamic) {
-         // let req = `${HOST_API}${i.data.link}`
+          // let req = `${HOST_API}${i.data.link}`
           let req = self.getTransformGlobalParam(i.data.link)
           const headers = {}
           const para = {}
@@ -214,12 +221,20 @@ export class SkeletonComponent implements OnInit, OnChanges {
     prepareDinamicLinkForNavigationList(this.navigationList)
   }
 
-  // touch event для отображения sidebar
+  /**
+   * Триггер для отображения sidebar
+   * @return {void}
+   */
   showSidebar (): void {
     this.hasVisibleCnt$.next('s-withNav')
     this.isShowNav$.next(true)
     this.hasShowNav$.next('s-show')
   }
+
+  /**
+   * Триггер для сокрытия sidebar
+   * @return {void}
+   */
   hideSidebar (): void {
     this.hasVisibleCnt$.next('s-fullscreen')
     this.isShowNav$.next(false)
@@ -229,6 +244,7 @@ export class SkeletonComponent implements OnInit, OnChanges {
 
   /**
    * Возвращает метод перевода в полноэкранным режмом
+   * @return {MethodDom}
    */
   getMethodFullScreen (): MethodDom {
     const d = window.document.body
@@ -236,6 +252,7 @@ export class SkeletonComponent implements OnInit, OnChanges {
   }
   /**
    * Выход из полноэкранного режима
+   * @return {void}
    */
   exitFullScreen (): void {
     window.document.exitFullscreen && window.document.exitFullscreen()
@@ -243,6 +260,7 @@ export class SkeletonComponent implements OnInit, OnChanges {
 
   /**
    * проверка на поддержку метода браузером превода в полноэкранный режим
+   * @return {boolean}
    */
   getIsSupportFullScreen (): boolean {
     return (typeof this.getMethodFullScreen() === 'function')
@@ -251,6 +269,7 @@ export class SkeletonComponent implements OnInit, OnChanges {
   /**
    * Наблюдатель за состоянием полноэкранного режима
    * устанавляевает свойство isFullScreen в true если режим включен и false если выключен
+   * @return {void}
    */
   handlerChangeFullScreen (): void {
     const self = this
@@ -268,6 +287,10 @@ export class SkeletonComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Возвращает состояние режима отображения - полноэкранный/стандарт
+   * @return {string}
+   */
   getStatusFullScreen (): string {
     let status
     this.isFullScreen$.subscribe(v => {
@@ -275,8 +298,10 @@ export class SkeletonComponent implements OnInit, OnChanges {
     })
     return status
   }
+
   /**
-   * преключатель в полноэкранный режим и обратно
+   * Триггер в полноэкранный режим и обратно
+   * @return {void}
    */
   onToggleFullScreen (): void {
     const doc = window.document
@@ -291,11 +316,9 @@ export class SkeletonComponent implements OnInit, OnChanges {
     }
   }
 
-
-
-  // hendlers
   /**
-   * Переключатель отображения навигации(sidebar)
+   * Триггер отображения навигации(sidebar)
+   * @return {void}
    */
   onToggleNav (): void {
     let isShowNav = !this.isShowNav$.value
@@ -309,6 +332,7 @@ export class SkeletonComponent implements OnInit, OnChanges {
   /**
    * Обработчик изменения экрана
    * Обработка отображения sidebar с навигацией по  приложению
+   * @return {void}
    */
   onChangeScreen (): void {
     let mql = window.matchMedia('screen and (min-width: 1024px)')
