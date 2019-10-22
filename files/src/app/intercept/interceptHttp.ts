@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 
-import {Observable, throwError} from 'rxjs'
-import {catchError, retry} from 'rxjs/operators'
+import {Observable, of, throwError} from 'rxjs'
+import {catchError, delay, mergeMap, retry, retryWhen, take} from 'rxjs/operators'
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -26,7 +26,16 @@ export class ErrorInterceptor implements HttpInterceptor {
    */
   intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
-      retry(1),
+      retryWhen(errors =>
+        errors.pipe(
+          mergeMap((error) => {
+            console.log('error', error)
+            return (error.status === 429) ? throwError(error) : of(error)
+          }),
+          delay(1000),
+          take(2)
+        )
+      ),
       catchError((error: HttpErrorResponse) => {
         let errorMessage = ''
         if (error.error instanceof ErrorEvent) {
@@ -40,8 +49,12 @@ export class ErrorInterceptor implements HttpInterceptor {
             errorMessage = error.error.errorMessage
           } else {
             errorMessage = error.status.toString()
-            //  notify(`Ошибка - ${errorMessage}`, 'error', 5000)
+
           }
+        }
+
+        if (!errorMessage) {
+          errorMessage = error.error
         }
 
         this.toastitService.add({

@@ -48,8 +48,7 @@ export class AppComponent implements OnInit {
     this.version = AppVersion.version
     this.nameUser$ = new Subject()
 
-    console.log(`%c ${this.nameApp} ${this.version}`, `background: #222 color: #bada55; padding: 3px 5px;`)
-
+    console.log(`%c ${this.nameApp} ${this.version}`, `background: #35547b; color: #fff; padding: 3px 5px;`)
   }
 
  /**
