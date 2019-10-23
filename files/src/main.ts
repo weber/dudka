@@ -47,5 +47,5 @@ getSettings()
     window.HELP_LINK = r.HELP_LINK
 
     platformBrowserDynamic().bootstrapModule(AppModule)
-      .catch(err => console.error(err))
+      .catch(err => console.error(`%c ${err}`, `background: red; color: #fff; padding: 3px 5px;`))
   })

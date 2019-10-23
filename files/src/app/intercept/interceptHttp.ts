@@ -29,7 +29,6 @@ export class ErrorInterceptor implements HttpInterceptor {
       retryWhen(errors =>
         errors.pipe(
           mergeMap((error) => {
-            console.log('error', error)
             return (error.status === 429) ? throwError(error) : of(error)
           }),
           delay(1000),

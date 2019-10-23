@@ -39,19 +39,19 @@ module.exports = {
 						name: 'iteration',
 						default: '11.6.0',
 						message: "Введите номер итерации?"
-					},
+					}/*,
 					{
 						type: 'input',
 						name: 'repo',
 						default: 'YOUR_NAME_PROJECT',
 						message: "Введите имя репозитория?"
-					}
+					}*/
 				])
-				.then(({ name, title, iteration, repo }) => {
-					
-					return {name, title, iteration, repo}
+				.then(({ name, title, iteration }) => {
+					return {name, title, iteration}
 				})
 				.then(r => {
+					r.repo = name
 					const pathTo =  path.resolve(process.cwd(), r.name)
 					r.pathTo = pathTo
 					return r
@@ -262,6 +262,23 @@ module.exports = {
 						
 						sp.on('close', _ => {
 							console.log("[", "Установка завистсмостей ангулара закончена".white,   "]");
+							return res(r)
+						})
+						
+					})
+				})
+				.then(r => {
+					
+					return new Promise(res => {
+						console.log("[", "Инициализация PWA".white,   "]");
+						const sp = spawn('ng', ['add', '@angular/pwa'], {
+							stdio: ['inherit', 'inherit', 'inherit'],
+							shell: true,
+							cwd: r.pathTo
+						})
+						
+						sp.on('close', _ => {
+							console.log("[", "Инициализация PWA закончена".white,   "]");
 							return res(r)
 						})
 						

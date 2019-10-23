@@ -110,7 +110,6 @@ export class SkeletonComponent implements OnInit, OnChanges {
      * @return string - css класс
      */
     this.isSidebarDisabled.subscribe(v => {
-      console.log('this.isSidebarDisabled.subscribe', v)
       this.SkeletonService.setSidebarDisabled(v)
       if (v === false) {
         this.hasVisibleCnt$.next('s-fullscreen')
@@ -215,7 +214,6 @@ export class SkeletonComponent implements OnInit, OnChanges {
           } else  i.data.isLinkNative = false
         }
       }
-      console.log('Done!')
     }
 
     prepareDinamicLinkForNavigationList(this.navigationList)

@@ -31,7 +31,8 @@ to: <%=name%>/angular.json
               "src/version.json",
               "src/appsettings.json",
               "src/logo.png",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ],
             "styles": [
               "node_modules/devextreme/dist/css/dx.common.css",
@@ -58,7 +59,9 @@ to: <%=name%>/angular.json
               "resourcesOutputPath": "./assets",
               "extractLicenses": true,
               "vendorChunk": true,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
@@ -92,7 +95,8 @@ to: <%=name%>/angular.json
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ]
           }
         },

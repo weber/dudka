@@ -14,7 +14,9 @@ to: <%=name%>/src/index.html
     }());
 
   </script>
+  <link rel="manifest" href="manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content='#35547b'/>
   <link rel="icon" type="image/png" href="logo.png" />
 </head>
 <body>
