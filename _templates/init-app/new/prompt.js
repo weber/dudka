@@ -51,7 +51,7 @@ module.exports = {
 					return {name, title, iteration}
 				})
 				.then(r => {
-					r.repo = name
+					r.repo = r.name
 					const pathTo =  path.resolve(process.cwd(), r.name)
 					r.pathTo = pathTo
 					return r
