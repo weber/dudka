@@ -45,8 +45,8 @@ import {ToastitModule} from 'ngx-toastit'
     SkeletonAppModule,
     StoreModule.forRoot({}, {
       runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
+        strictStateImmutability: false,
+        strictActionImmutability: false,
         strictStateSerializability: true,
         strictActionSerializability: true,
       },

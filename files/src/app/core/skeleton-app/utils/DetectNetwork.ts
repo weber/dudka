@@ -8,7 +8,7 @@ export class DetectNetwork {
   constructor () {
     this.statusNetwork$ = new Subject()
     this.stateNetwork.forEach(event => window.addEventListener(event, this.updateOnlineStatus.bind(this)))
-    this.updateOnlineStatus()
+    // this.updateOnlineStatus()
   }
 
 
