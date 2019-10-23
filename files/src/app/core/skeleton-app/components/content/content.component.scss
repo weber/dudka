@@ -168,6 +168,14 @@ $nav-width: 28rem;
 
     &__menu{
       background: #35547b;
+
+      &.s-offline{
+        background: red;
+        &.dx-state-hover {
+          background: #ae0000;
+        }
+      }
+
       ::ng-deep {
         .dx-icon {
           color: #fff;
