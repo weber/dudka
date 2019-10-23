@@ -85,7 +85,7 @@ export class ContentComponent implements OnInit {
    * @return {void}
    */
   hasChildNode (): void {
-    if (this.contentHeaderBodyRight.nativeElement.childNodes[0].childNodes.length > 0) {
+    if (this.contentHeaderBodyRight.nativeElement.childNodes.length > 1) {
       this.contentHeaderBodyRight.nativeElement.classList.add('s-show')
     } else {
       this.contentHeaderBodyRight.nativeElement.classList.add('s-hide')
