@@ -38,7 +38,7 @@ module.exports = {
 						type: 'input',
 						name: 'iteration',
 						default: '11.6.0',
-						message: "Введите номер итерации?"
+						message: "Введите номер итерации(или имя ветки)?"
 					}/*,
 					{
 						type: 'input',
@@ -82,38 +82,38 @@ module.exports = {
 							shell: true,
 							cwd: r.pathTo
 						})
-						
+
 						sp.on('close', _ => {
 							console.log("[", "Инициализация GIT - закончена".white,   "]");
 							return res(r)
 						})
-						
+
 					})
 				})
 				/*.then(r => {
-					
+
 					if (r.repo && r.repo !== 'YOUR_NAME_PROJECT') {
 						return new Promise(res => {
 							console.log("[", "Привязка к репозиторию проекта".white,   "]");
 								const sp = spawn('git', ['remote', 'add', 'origin', `ssh://cl-tfs2018:8080/tfs/CK-11/WebDev/_git/${r.repo}`
-							
+
 							], {
 								stdio: ['inherit', 'inherit', 'inherit'],
 								shell: true,
 								cwd: r.pathTo
 							})
-							
+
 							sp.on('close', _ => {
 								console.log('error', _)
 								console.log("[", "Привязка к репозиторию проекта закончена".white,   "]");
 								return res(r)
 							})
-							
+
 						})
 					} else {
 						return r
 					}
-					
+
 				})
 				.then(r => {
 					if (r.repo && r.repo !== 'YOUR_NAME_PROJECT') {
@@ -125,12 +125,12 @@ module.exports = {
 								shell: true,
 								cwd: r.pathTo
 							})
-							
+
 							sp.on('close', _ => {
 								console.log("[", "Фиксация в репозитории закончена".white,   "]");
 								return res(r)
 							})
-							
+
 						})
 					} else {
 						return r
@@ -146,17 +146,17 @@ module.exports = {
 								shell: true,
 								cwd: r.pathTo
 							})
-							
+
 							sp.on('close', _ => {
 								console.log("[", "Ветка создана".white,   "]");
 								return res(r)
 							})
-							
+
 						})
 					} else {
 						return r
 					}
-					
+
 				})*/
 				/*.then(r => {
 					// git checkout -b
@@ -168,12 +168,12 @@ module.exports = {
 							shell: true,
 							cwd: r.pathTo
 						})
-						
+
 						sp.on('close', _ => {
 							console.log("[", "Ветка master создана".white,   "]");
 							return res(r)
 						})
-						
+
 					})
 				})*/
 				.then(r => {
@@ -186,15 +186,15 @@ module.exports = {
 								shell: true,
 								cwd: r.pathTo
 							})
-							
+
 							sp.on('close', _ => {
 								console.log("[", "Ветка создана".white,   "]");
 								return res(r)
 							})
-							
+
 						})
 				})
-				
+
 				.then(r => {
 				  /*const spinner = ora(`Инициализация приложения ${r.name}`).start();
 					spinner.color = 'yellow';*/
@@ -204,54 +204,54 @@ module.exports = {
 							stdio: ['inherit', 'inherit', 'inherit'],
 							shell: true
 						})
-						
-						
-						
+
+
+
 						sp.on('close', _ => {
 						//	spinner.stop()
 							console.log("[", "базовое приложение создано".white,   "]");
 							return res(r)
 						})
-						
+
 					})
 				})
-				
-				
+
+
 				.then(r => {
-					
+
 					const pathFrom = path.resolve(__dirname, './files/')
 					const pathCopyFrom = path.resolve(__dirname, '../../../', 'files/')
-					
+
 					fs.copy(pathCopyFrom, r.pathTo)
 						.then(() => console.log('success!'))
 						.catch(err => console.error(err))
-					
-					
+
+
 					console.log(r.name.green, r.title.red, r.iteration.yellow)
-					
-					
+
+
 
 					return r
 				})
-				
+
 				.then(r => {
 					const pathToPackageJson = path.resolve(process.cwd(), r.name, 'package.json')
 					const pathNG = `./node_modules/.bin/ng`
 					const pathTSLint = `./node_modules/.bin/tslint`
 					const pathCompodoc = `./node_modules/@compodoc/compodoc/bin/index-cli.js`
-					
+
 					setOptionPackage (pathToPackageJson, 'name', r.name)
 					setOptionPackage (pathToPackageJson, 'version', r.iteration)
 					setOptionPackage (pathToPackageJson, 'ng', pathNG)
 					setOptionPackage (pathToPackageJson, 'start', `${pathNG} serve --progress --aot`)
-					setOptionPackage (pathToPackageJson, 'build', `node --max_old_space_size=8000 ${pathNG} build --prod --base-href /${r.name}/ --progress`)
+					setOptionPackage (pathToPackageJson, 'build', `${pathNG} build --prod --base-href /${r.name}/ --progress`)
 
 					setOptionPackage (pathToPackageJson, 'test', `${pathNG} test`)
 					setOptionPackage (pathToPackageJson, 'e2e', `${pathNG} e2e`)
 					return r
 				})
 				.then(r => {
-					
+
 					return new Promise(res => {
 						console.log("[", "Установка завистсмостей ангулара".white,   "]");
 						const sp = spawn('npm', ['i'], {
@@ -259,16 +259,16 @@ module.exports = {
 							shell: true,
 							cwd: r.pathTo
 						})
-						
+
 						sp.on('close', _ => {
 							console.log("[", "Установка завистсмостей ангулара закончена".white,   "]");
 							return res(r)
 						})
-						
+
 					})
 				})
 				.then(r => {
-					
+
 					return new Promise(res => {
 						console.log("[", "Инициализация PWA".white,   "]");
 						const sp = spawn('ng', ['add', '@angular/pwa'], {
@@ -276,16 +276,16 @@ module.exports = {
 							shell: true,
 							cwd: r.pathTo
 						})
-						
+
 						sp.on('close', _ => {
 							console.log("[", "Инициализация PWA закончена".white,   "]");
 							return res(r)
 						})
-						
+
 					})
 				})
 				.then(r => {
-					
+
 					return new Promise(res => {
 						console.log("[", "Установка зависимостей приложения начата".white,   "]");
 						const sp = spawn('npm', ['i',
@@ -303,25 +303,26 @@ module.exports = {
 							'npm-check-updates',
 							'ramda',
 							'ramda-extension',
-							'reflect-metadata'
+							'reflect-metadata',
+							'@me-component/dx-styles'
 						], {
 							stdio: ['inherit', 'inherit', 'inherit'],
 							shell: true,
 							cwd: r.pathTo
 						})
-						
-						
-						
+
+
+
 						sp.on('close', _ => {
 							//	spinner.stop()
 							console.log("[", "Установка зависимостей приложения закончена".white,   "]");
 							return res(r)
 						})
-						
+
 					})
 				})
 				.then(r => {
-					
+
 					return new Promise(res => {
 						console.log("[", "Установка зависимостей разработки начата".white,   "]");
 						const sp = spawn('npm', ['i',
@@ -337,22 +338,21 @@ module.exports = {
 							'ngx-toastit',
 							'on-push-tslint',
 							'tslint-config-security',
-							'monitel-web-styles@git+ssh://cl-tfs2018.monitel.local:22/tfs/CK-11/WebDev/_git/WebStyles'
 						], {
 							stdio: ['inherit', 'inherit', 'inherit'],
 							shell: true,
 							cwd: r.pathTo
 						})
-						
+
 						sp.on('close', _ => {
 							console.log("[", "Установка зависимостей разработки закончена".white,   "]");
 							return res(r)
 						})
-						
+
 					})
 				})
-			
-				
+
+
 				.then(r => {
 					/*spinner.stop()*/
 					resolve(r)
