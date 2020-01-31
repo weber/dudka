@@ -21,6 +21,7 @@
     "replace-in-file": "^5.0.2"
   },
   "devDependencies": {},
+
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
