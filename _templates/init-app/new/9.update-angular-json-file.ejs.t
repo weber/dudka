@@ -39,8 +39,7 @@ to: <%=name%>/angular.json
               "src/styles.scss"
 
             ],
-            "scripts": [],
-            "es5BrowserSupport": true
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -55,7 +54,6 @@ to: <%=name%>/angular.json
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": true,
-              "aot": true,
               "resourcesOutputPath": "./assets",
               "extractLicenses": true,
               "vendorChunk": true,
@@ -146,6 +144,7 @@ to: <%=name%>/angular.json
   },
   "defaultProject": "<%=name%>",
   "cli": {
+    "analytics": false,
     "defaultCollection": "@ngrx/schematics"
   },
   "schematics": {

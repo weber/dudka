@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "assets/roboto/roboto.css";
-@import "~@me-component/devextreme/datagrid/index";
-@import "~@me-component/default/scroll";
-@import "assets/scss/utils";
+@import "~@me-component/dx-styles/devextreme/datagrid/index";
+@import "~@me-component/dx-styles/default/scroll";
+@import "assets/scss/utils"; 
 @import "assets/scss/media";
 @import "assets/scss/shadow";
 
